@@ -1,0 +1,81 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    height: 100vh;
+    background: linear-gradient(rgb(21, 238, 209),rgb(3, 126, 64));
+    width: 100%;
+}
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+.add-task{
+    padding: 1em;
+}
+.add-task h2{
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+}
+.add-task-input{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.add-task>.add-task-input .form{
+    padding: 0.5em;
+    outline: 0;
+    border: 0;
+    border-radius: 5px;
+    width: 300px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.438);
+}
+.add-task>.add-task-input button{
+    background: black;
+    color: white;
+    border: 0;
+    padding: 0.5em;
+}
+.add-task>.add-task-input button:hover{
+    background: skyblue;
+    color: black;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+.add-task .task-list{
+    margin: 2em 0;
+}
+.add-task .task-list .list{
+    margin: 1em 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.add-task .task-list .list> .form{
+    padding: 0.5em;
+    outline: 0;
+    border: 0;
+    border-radius: 5px;
+    width: 300px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.438);
+}
+
+.task-list .list button{
+    background: black;
+    color: white;
+    border: 0;
+    padding: 0.5em;
+    margin-left: 0.5em;
+} 
+.task-list .list button:hover{
+    background: skyblue;
+    color: black;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}

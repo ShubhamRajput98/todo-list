@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="add-task">
+            <h2>Add Task</h2>
+            <div class="add-task-input">
+                <input type="text" id="task-input" class="form">
+                <button id="add">Add task</button>
+            </div>
+
+            <div class="task-list">
+                <div class="heading">
+                    <h2>Task List</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+
+
+
+        window.addEventListener("load", () => {
+            showTask()
+            const add = document.querySelector("#add")
+
+            add.addEventListener("click", (e) => {
+                e.preventDefault()
+
+
+                const taskInput = document.querySelector("#task-input");
+                const inputValue = taskInput.value;
+
+
+                if (taskInput.value == "") {
+                    return alert("enter value")
+                }
+
+
+                //add local storeg...................................
+
+
+                let wibTask = localStorage.getItem("localTask")
+                if (wibTask == null) {
+                    taskObj = []
+                } else {
+                    taskObj = JSON.parse(wibTask)
+                }
+                taskObj.push(inputValue)
+                localStorage.setItem("localTask", JSON.stringify(taskObj))
+
+                // ..................................................
+
+
+
+                taskInput.value = '';
+                taskInput.focus()
+
+
+                showTask()
+
+
+            })
+
+
+
+            // delet repeting values
+
+            function reset() {
+                const taskList = document.querySelector(".task-list")
+                document.querySelectorAll(".list").forEach(tag => {
+                    taskList.removeChild(tag);
+                })
+            }
+
+
+
+
+            // creat element and add values 
+
+            function showTask() {
+                reset()
+                let wibTask = localStorage.getItem("localTask")
+                if (wibTask == null) {
+                    taskObj = []
+                } else {
+                    taskObj = JSON.parse(wibTask)
+                }
+
+
+                taskObj.forEach((itms, index) => {
+
+                    if (itms === '') {
+                        return
+                    }
+
+                    const addTask = document.querySelector(".add-task");
+                    const taskList = document.querySelector(".task-list")
+                    const list = document.createElement("div");
+                    list.setAttribute("class", "list")
+
+
+
+                    const input = document.createElement("input");
+                    input.setAttribute("readonly", "readonly");
+                    input.setAttribute("type", "text");
+                    input.setAttribute("class", "form");
+                    input.value = itms;
+
+                    const hideInput = document.createElement("input");
+                    hideInput.setAttribute("type", "hidden");
+                    hideInput.setAttribute("class", "hide-input")
+
+                    list.appendChild(hideInput)
+
+                    list.appendChild(input)
+                    taskList.appendChild(list)
+                    addTask.appendChild(taskList)
+
+
+
+                    // creat edit and delet btn
+
+                    const btn1 = document.createElement("button");
+                    btn1.innerHTML = "Edit"
+                    list.appendChild(btn1)
+                    const btn2 = document.createElement("button");
+                    btn2.innerHTML = "Delete"
+                    list.appendChild(btn2)
+
+                    //make edit btn
+
+                    btn1.addEventListener("click", () => {
+                        if (btn1.innerHTML.toLowerCase() === "edit") {
+
+                            input.removeAttribute("readonly");
+                            input.focus();
+                            btn1.innerHTML = "Save"
+
+
+                            let hidden = document.querySelector(".hide-input")
+                            hidden.value = index
+
+                        } else {
+                            input.setAttribute("readonly", "readonly");
+                            btn1.innerHTML = "Edit";
+
+
+                            let hidden = document.querySelector(".hide-input").value;
+
+
+                            taskObj[hidden] = input.value
+                            localStorage.setItem("localTask", JSON.stringify(taskObj))
+                            showTask()
+                        }
+                    })
+
+
+                    //make delet btn
+
+
+                    btn2.addEventListener("click", (index) => {
+                        taskObj.splice(index, 1)
+                        localStorage.setItem("localTask", JSON.stringify(taskObj))
+                        showTask()
+                    })
+                });
+            }
+
+
+        })
+    </script>
+</body>
+</html>
